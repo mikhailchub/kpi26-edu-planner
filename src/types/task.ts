@@ -17,9 +17,11 @@ export interface Task {
 
 export interface TaskStore {
   tasks: Task[];
+  theme: 'light' | 'dark';
   addTask: (task: Omit<Task, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => void;
   updateTask: (id: string, updates: Partial<Task>) => void;
   deleteTask: (id: string) => void;
   setStatus: (id: string, status: TaskStatus) => void;
   resetData: () => void;
+  toggleTheme: () => void;
 }

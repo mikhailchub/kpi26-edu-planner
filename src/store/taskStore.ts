@@ -48,6 +48,7 @@ export const useTaskStore = create<TaskStore>()(
   persist(
     (set, get) => ({
       tasks: DEMO_DATA,
+      theme: 'dark',
 
       addTask: (taskData) => {
         const now = new Date().toISOString();
@@ -95,6 +96,10 @@ export const useTaskStore = create<TaskStore>()(
 
       resetData: () => {
         set({ tasks: DEMO_DATA });
+      },
+
+      toggleTheme: () => {
+        set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' }));
       },
     }),
     {

@@ -4,11 +4,12 @@ import { StatsPanel } from './components/StatsPanel';
 import { FilterBar } from './components/FilterBar';
 import { TaskList } from './components/TaskList';
 import { TaskForm } from './components/TaskForm';
+import { ThemeToggle } from './components/ThemeToggle';
 import type { Task, TaskPriority, TaskStatus } from './types/task';
 import { Plus, RotateCcw } from 'lucide-react';
 
 function App() {
-  const { tasks, addTask, updateTask, deleteTask, resetData } = useTaskStore();
+  const { tasks, theme, addTask, updateTask, deleteTask, resetData } = useTaskStore();
   
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'All'>('All');
@@ -17,6 +18,11 @@ function App() {
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
+
+  // Sync theme with DOM
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // Check for overdue tasks every minute
   useEffect(() => {
@@ -85,6 +91,7 @@ function App() {
             <RotateCcw size={20} />
             Скинути дані
           </button>
+          <ThemeToggle />
           <button className="btn btn-primary" onClick={() => setIsFormOpen(true)}>
             <Plus size={20} />
             Нова задача
